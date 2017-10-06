@@ -60,7 +60,7 @@ docker-compose -p ecloud -f docker-compose.yml logs
 
 #### running the data process
 ```bash
- docker exec -i -t rserver /process/mk_phenoclasses.R
+docker exec -i -t rserver Rscript /process/mk_phenoclasses.R
 
  used (Mb) gc trigger (Mb) max used (Mb)
 Ncells  94895  5.1     350000 18.7   235732 12.6
