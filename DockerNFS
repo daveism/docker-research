@@ -1,8 +1,16 @@
-FROM rocker/rstudio-stable:latest
+# FROM rocker/rstudio-stable:latest
+FROM debian:stable
+
+RUN useradd docker \
+	&& mkdir /home/docker \
+	&& chown docker:docker /home/docker \
+	&& addgroup docker staff
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
-    nfs-kernel-server mhddfs
+    nfs-kernel-server mhddfs \
+    	&& rm -rf /var/lib/apt/lists/*
+
 
 ADD mount-main.sh /
 ADD run-mountd.sh /
