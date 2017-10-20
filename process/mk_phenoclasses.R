@@ -8,7 +8,7 @@ dpath <- '/data'
 spath <- '/process'
 subset <- TRUE # Should an even smaller subset be selected for clustering
 nk <- 10 # Number of clusters centroids
-yrs2proc <- seq(2000, 2015) # Calendar years of data to process
+yrs2proc <- seq(2000, 2002) # Calendar years of data to process
 nyr <- length(yrs2proc)
 iter.seed <- 10^2 # Number of iterations to find optimal cluster seed values
 iter.trial <- 10^2 # During each clustering, what is the max number of

@@ -1,0 +1,21 @@
+FROM centos:centos7
+
+MAINTAINER Martin Nagy <nagy.martin@gmail.com>
+
+ENV container=docker
+
+RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
+    yum -y --setopt=tsflags=nodocs install nfs-utils net-tools && \
+    mkdir -p /exports && \
+    yum clean all
+
+COPY run-mountd.sh /
+
+COPY data/*2000* /exports/data/
+
+VOLUME ["/exports"]
+EXPOSE 111
+EXPOSE 2049
+EXPOSE 20048
+
+ENTRYPOINT ["/run-mountd.sh"]
