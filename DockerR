@@ -8,6 +8,10 @@ EXPOSE 20048
 RUN apt-get update && apt-get install -y \
 	nfs-common
 
+RUN apt-get clean autoclean
+RUN apt-get autoremove -y
+RUN rm -rf /var/lib/{apt,dpkg,cache,log}/
+
 RUN bash -c 'mkdir -p  /data'
 
 COPY wait_showmount.sh /

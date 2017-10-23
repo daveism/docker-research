@@ -1,4 +1,3 @@
-# FROM rocker/rstudio-stable:latest
 FROM debian:stable
 
 RUN useradd docker \
@@ -10,7 +9,6 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     nfs-kernel-server mhddfs \
     	&& rm -rf /var/lib/apt/lists/*
-
 
 ADD mount-main.sh /
 ADD run-mountd.sh /
@@ -30,46 +28,3 @@ EXPOSE 20048
 
 WORKDIR /
 CMD ["bash", "-c", "./mount-main.sh ${mount_point}"]
-
-# ENTRYPOINT ["/run-mountd.sh"]
-
-# FROM centos:centos7
-#
-
-
-# FROM centos:centos7
-#
-# MAINTAINER Martin Nagy <nagy.martin@gmail.com>
-#
-# ENV container=docker
-#
-# RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
-#     yum -y --setopt=tsflags=nodocs install nfs-utils net-tools && \
-#     mkdir -p /exports && \
-#     yum clean all
-#
-# ADD mount-main.sh /
-# ADD mount-2001.sh /
-# ADD mount-2002.sh /
-#
-# RUN bash -c 'mkdir -p  /exports/data'
-# RUN bash -c 'mkdir -p  /mnt/2001'
-# RUN bash -c 'mkdir -p  /mnt/2002'
-#
-#
-# #COPY data/ /exports/data/
-#
-# VOLUME ["/exports"]
-# EXPOSE 111
-# EXPOSE 2049
-# EXPOSE 20048
-#
-#
-# # ENV HOME /root
-# WORKDIR /
-# CMD ["bash", "-c", "./mount-main.sh ${mount_point}"]
-
-# ENV HOME /root
-# WORKDIR /root
-# CMD ["./mount-2001.sh"]
-# CMD ["./mount-2002.sh"]

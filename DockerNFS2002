@@ -1,14 +1,17 @@
-FROM centos:centos7
-
-MAINTAINER Martin Nagy <nagy.martin@gmail.com>
+FROM debian:stable
 
 ENV container=docker
 
-RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
-    yum -y --setopt=tsflags=nodocs install nfs-utils net-tools mhddfs && \
-    mkdir -p /exports && \
-    yum clean all
+RUN useradd docker \
+	&& mkdir /home/docker \
+	&& chown docker:docker /home/docker \
+	&& addgroup docker staff
 
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    nfs-kernel-server mhddfs \
+    	&& rm -rf /var/lib/apt/lists/*
+      
 COPY run-mountd.sh /
 
 COPY data/*2002* /exports/data/
