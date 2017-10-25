@@ -55,7 +55,9 @@ NCB2000_28.img	NCB2001_10.img	NCB2001_38.img	NCB2002_20.img
 #### running the data process
 ```bash
 
-docker exec -i -t rserver Rscript /process/mk_phenoclasses.R         used (Mb) gc trigger (Mb) max used (Mb)
+docker exec -i -t rserver Rscript /process/mk_phenoclasses.R         
+
+used (Mb) gc trigger (Mb) max used (Mb)
 Ncells  94895  5.1     350000 18.7   235732 12.6
 Vcells 203091  1.6     786432  6.0   689728  5.3
 Loading required package: iterators
