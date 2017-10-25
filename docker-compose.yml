@@ -1,6 +1,7 @@
 version: '2'
 services:
   nfs:
+    image: nfs
     build:
       context: .
       dockerfile: DockerNFS
@@ -19,6 +20,7 @@ services:
       net:
         ipv4_address: 10.5.0.3
   nfs2000:
+    image: nfs2000
     build:
       context: .
       dockerfile: DockerNFS2000
@@ -31,6 +33,7 @@ services:
       net:
         ipv4_address: 10.5.0.200
   nfs2001:
+    image: nfs2001
     build:
       context: .
       dockerfile: DockerNFS2001
@@ -43,6 +46,7 @@ services:
       net:
         ipv4_address: 10.5.0.201
   nfs2002:
+    image: nfs2002
     build:
       context: .
       dockerfile: DockerNFS2002
@@ -55,6 +59,7 @@ services:
       net:
         ipv4_address: 10.5.0.202
   r:
+    image: rserver
     build:
       context: .
       dockerfile: DockerR
