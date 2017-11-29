@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   nfs:
     image: nfs
@@ -65,7 +65,7 @@ services:
       dockerfile: DockerR
     container_name: rserver
     privileged: true
-    shm_size: 2G
+    shm_size: 25G
     stdin_open: true
     depends_on:
       - "nfs"

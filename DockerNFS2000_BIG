@@ -14,7 +14,7 @@ RUN apt-get update \
 
 COPY run-mountd.sh /
 
-COPY data/*2002* /exports/data/
+COPY data/*2000*.img /exports/data/
 
 VOLUME ["/exports"]
 EXPOSE 111

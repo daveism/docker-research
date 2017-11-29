@@ -11,7 +11,7 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     nfs-kernel-server mhddfs \
     	&& rm -rf /var/lib/apt/lists/*
-      
+
 COPY run-mountd.sh /
 
 COPY data/*2001* /exports/data/

@@ -18,8 +18,7 @@ load_data <- function(dpath, opath, f_prfx, yrs2proc) {
   print(paste('XY coordinates saved to',ofname))
   rm(ras) # Clean up
   ### Initialize output array
-  output <- big.matrix(np*length(yrs2proc), spy,
-    type='short', init=NA)
+  output <- big.matrix(np*length(yrs2proc),spy, type='short', init=NA)
   print(paste('Populating array output[',
     nrow(output),':',ncol(output),']',sep=''))
 
