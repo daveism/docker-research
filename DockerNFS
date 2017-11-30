@@ -1,5 +1,7 @@
 FROM debian:stable
 
+ENV container=docker
+
 RUN useradd docker \
 	&& mkdir /home/docker \
 	&& chown docker:docker /home/docker \
@@ -10,21 +12,16 @@ RUN apt-get update \
     nfs-kernel-server mhddfs \
     	&& rm -rf /var/lib/apt/lists/*
 
-ADD mount-main.sh /
-ADD run-mountd.sh /
-ADD mount-2000.sh /
-ADD mount-2001.sh /
-ADD mount-2002.sh /
+COPY run-mountd.sh /
 
-RUN bash -c 'mkdir -p  /mnt/2000'
-RUN bash -c 'mkdir -p  /mnt/2001'
-RUN bash -c 'mkdir -p  /mnt/2002'
 RUN bash -c 'mkdir -p  /exports/data'
+
+COPY data/*2000* /exports/data/
+COPY data/*2001* /exports/data/
 
 VOLUME ["/exports"]
 EXPOSE 111
 EXPOSE 2049
 EXPOSE 20048
 
-WORKDIR /
-CMD ["bash", "-c", "./mount-main.sh ${mount_point}"]
+ENTRYPOINT ["/run-mountd.sh"]

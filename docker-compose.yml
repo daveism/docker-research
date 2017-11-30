@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2'
 services:
   nfs:
     image: nfs
@@ -9,55 +9,10 @@ services:
     privileged: true
     hostname: nfs
     tty: true
-    # command: /exports/data
-    environment:
-      - mount_point=/exports/data
-    depends_on:
-      - "nfs2002"
-      - "nfs2001"
-      - "nfs2000"
+    command: /exports/data
     networks:
       net:
         ipv4_address: 10.5.0.3
-  nfs2000:
-    image: nfs2000
-    build:
-      context: .
-      dockerfile: DockerNFS2000
-    container_name: nfs2000
-    privileged: true
-    hostname: nfs2000
-    tty: true
-    command: /exports/data
-    networks:
-      net:
-        ipv4_address: 10.5.0.200
-  nfs2001:
-    image: nfs2001
-    build:
-      context: .
-      dockerfile: DockerNFS2001
-    container_name: nfs2001
-    privileged: true
-    hostname: nfs2001
-    tty: true
-    command: /exports/data
-    networks:
-      net:
-        ipv4_address: 10.5.0.201
-  nfs2002:
-    image: nfs2002
-    build:
-      context: .
-      dockerfile: DockerNFS2002
-    container_name: nfs2002
-    privileged: true
-    hostname: nfs2002
-    tty: true
-    command: /exports/data
-    networks:
-      net:
-        ipv4_address: 10.5.0.202
   r:
     image: rserver
     build:

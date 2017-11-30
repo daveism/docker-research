@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cd /
-./mount-2000.sh
-./mount-2001.sh
-./mount-2002.sh
+# cd /
+# ./mount-2000.sh
+# ./mount-2001.sh
+# ./mount-2002.sh
 
 set -eu
 

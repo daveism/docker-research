@@ -27,5 +27,3 @@ RUN install2.r --error devtools
 RUN Rscript -e "devtools::install_github('bjornbrooks/PolarMetrics')"
 
 ENTRYPOINT bash -c  '/wait_showmount.sh';'bash'
-
-#CMD bash -c '/wait_showmount.sh'

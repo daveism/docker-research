@@ -8,7 +8,8 @@ dpath <- '/data'
 spath <- '/process'
 subset <- TRUE # Should an even smaller subset be selected for clustering
 nk <- 10 # Number of clusters centroids
-yrs2proc <- seq(2000,2002) # Calendar years of data to process
+#yrs2proc <- seq(2000, 2002) # Calendar years of data to process
+yrs2proc <- seq(2000, 2001) # Calendar years of data to process
 nyr <- length(yrs2proc)
 iter.seed <- 10^2 # Number of iterations to find optimal cluster seed values
 iter.trial <- 10^2 # During each clustering, what is the max number of
@@ -98,23 +99,26 @@ library(raster)
 file.list <- list.files(spath, pattern='template')	# place where input data live (modify 'pattern' as needed)
 r <- raster(paste(spath,file.list[1], sep="/"))	# use first one as template
 
+years<-big.pc[unique(big.pc[,2]),2]  #make a unique list of years
+
 # function
-rstr.frm.vals <- function(template, year, dat, rast.format="GTiff"){
+rstr.frm.vals <- function(template, dat, rast.format="GTiff"){
 	temp <- template				# copy raster template
 	vals <- getValues(temp)					# raster values vector
-	for(y in 1:ncol(year)){							# year
+	# for(y in year){  # raster for each year
 		for(i in 1:ncol(dat)){							# create a raster for each dat column
 				vals[which(!is.na(vals))] <- dat[,i]					# set values for raster
 				newrast <- setValues(temp, vals)					# feed values to raster
 				extn <- ifelse(rast.format=="HFA", ".img", ".tif")
-				file.name <- paster(y," ",paste(colnames(dat)[i], extn, sep=""), sep="_")
+				file.name <- paste(colnames(dat)[i], extn, sep="")
 				writeRaster(newrast, filename=file.name, format=rast.format, overwrite=TRUE)	#save raster
 			}
-		}
+		# }
 	}
 
 # run function on output data: specify template, data, and raster format.
-rstr.frm.vals(r,big.pc[,2:2],big.pc[,3:9],"GTiff")		# specify parameters (template, data, and output format)
+#rstr.frm.vals(r,years[,1:1],big.pc[,3:9],"GTiff")		# specify parameters (template, data, and output format)
+rstr.frm.vals(r,big.pc[,3:9],"GTiff")		# specify parameters (template, data, and output format)
 
 # Check results
 print('Check if pixels were assigned to clusters (right-most col).')
