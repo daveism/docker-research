@@ -21,7 +21,8 @@ calc_pc <- function(input, ZP, ZPc, spc, np, nyr) {
     input_idx <- input[idx,]
     tmp <- calc_metrics(as.vector(t(input_idx)), t = t, yr_type='cal_yr',
                         spc=spc, lcut=0.15, hcut=0.8,
-                        return.vecs=FALSE) # Calcualte PC's
+                        return_vecs=FALSE,
+                        sin_cos=FALSE) # Calculate PC's
     output[idx[-length(idx)], c(2:ncol(output))] <- tmp[,c(1,2,4,6,8,10,11,12)]
   }
   output <- as.big.matrix(output)
