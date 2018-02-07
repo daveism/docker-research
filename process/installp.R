@@ -1,5 +1,0 @@
-#install.packages('zoo')
-install.packages('/user/r/myscripts/PolarMetrics', repos=NULL, type='source')
-#install.packages(c('sp', 'raster', 'rgdal', 'biganalytics', 'parallel'))
-#install.packages('doMC')
-#install.packages('rgdal')
