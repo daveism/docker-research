@@ -1,7 +1,8 @@
 FROM rocker/geospatial
-MAINTAINER "Dave Micheson" dmichels@unca.edu
+MAINTAINER "Dave Michelson" dmichels@unca.edu
 
-ARG WORK_DIR='/docker'
+ARG USER='rstudio'
+ARG WORK_DIR='/project'
 ARG CONFIG_FILE='sample.env'
 
 RUN apt-get clean autoclean
@@ -18,7 +19,10 @@ RUN Rscript -e "devtools::install_github('bjornbrooks/PolarMetrics')"
 
 COPY . $WORK_DIR
 
-COPY $CONFIG_FILE /home/rstudio/.Renviron
+RUN chown -R $USER:$USER $WORK_DIR
 
-RUN chown -R rstudio:rstudio $WORK_DIR
+COPY $CONFIG_FILE /home/$USER/.Renviron
+
+# Set the working directory upon R session startup
+RUN echo setwd\(\'$WORK_DIR\'\) >> /home/$USER/.Rprofile
 

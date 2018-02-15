@@ -1,6 +1,7 @@
 calc_pc <- function(input, ZP, ZPc, spc, np, nyr) {
   t0 <- proc.time() # Mark time
   library(PolarMetrics)
+  gc()
   print(paste(date(), ' | Calculating polar coords. (',
         length(ZP),' rows witheld)',sep=''))
   nr <- np*(nyr-1)
@@ -17,6 +18,7 @@ calc_pc <- function(input, ZP, ZPc, spc, np, nyr) {
   }
   t <- rep(seq(3, 365, by=8), nyr) + 365*rep(0:(nyr-1), each=46)
   for (I in px2proc) { # Loop over good pixels
+    gc()
     idx <- rep(I, nyr) + seq
     input_idx <- input[idx,]
     tmp <- calc_metrics(as.vector(t(input_idx)), t = t, yr_type='cal_yr',
@@ -25,6 +27,7 @@ calc_pc <- function(input, ZP, ZPc, spc, np, nyr) {
                         sin_cos=FALSE) # Calculate PC's
     output[idx[-length(idx)], c(2:ncol(output))] <- tmp[,c(1,2,4,6,8,10,11,12)]
   }
+  gc()
   output <- as.big.matrix(output)
   melap <- sprintf('%03.2f', (proc.time()-t0)[3]/60^1) # Time elapsed
   print(paste(date(),' | Minutes loading data: ',melap,sep=''))

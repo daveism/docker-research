@@ -1,4 +1,7 @@
-load_data <- function(dpath, opath, f_prfx, tmpfilename, yrs2proc) {
+
+
+
+load_data <- function(dpath, opath, f_prfx, yrs2proc) {
   t0 <- proc.time() # Mark time
   ### Load packages
   library(raster)
@@ -15,11 +18,10 @@ load_data <- function(dpath, opath, f_prfx, tmpfilename, yrs2proc) {
   ofname <- file.path(opath,'load_data.RData')
   xycoords <- xyFromCell(ras, 1:ncell(ras)) # Lambert x,y coords
   save(list=c('np', 'spy', 'xycoords'), file=ofname)
-  print(paste('XY coordinates saved to',ofname))
+  print(paste('XY coordinates saved to', ofname))
   rm(ras) # Clean up
   ### Initialize output array
-  output <- big.matrix(np*length(yrs2proc),spy, type='short', separated=TRUE,
-                       backingpath=opath, backingfile=tmpfilename)
+  output <- big.matrix(np*length(yrs2proc),spy, type='short')
   print(paste('Populating array output[',
     nrow(output),':',ncol(output),']',sep=''))
 
@@ -40,7 +42,6 @@ load_data <- function(dpath, opath, f_prfx, tmpfilename, yrs2proc) {
       ras.stack <- stack(ras)
       ras.as.matrix <- as.matrix(ras.stack, nrow=np, ncol=1)
       output[a:b,index] <- as.matrix(ras.stack, nrow=np, ncol=1)
-      flush(output)
     }
   }
   cat(' Done\n')
